@@ -1,5 +1,5 @@
 {
-  "name": "@my-sst-app/core",
+  "name": "@portfolio/core",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -9,7 +9,7 @@
   "devDependencies": {
     "vitest": "^1.2.2",
     "@types/node": "^20.11.17",
-    "sst": "^2.40.3"
+    "sst": "2.40.3"
   },
   "dependencies": {
     "zod": "^3.22.4"
