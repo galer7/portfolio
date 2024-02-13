@@ -1,23 +1,15 @@
-import { useState } from "react";
-import "./App.css";
+import { PROJECTS } from "./projects";
+import ProjectList from "./components/ProjectList";
+import TopBar from "./components/TopBar";
 
 function App() {
-  const [message, setMessage] = useState("Hi 👋");
-
-  function onClick() {
-    fetch(import.meta.env.VITE_APP_API_URL)
-      .then((response) => response.text())
-      .then(setMessage);
-  }
-
   return (
-    <div className="App">
-      <div className="card">
-        <button onClick={onClick}>
-          Message is "<i>{message}</i>"
-        </button>
+    <>
+      <TopBar />
+      <div className="flex flex-col h-screen ml-20">
+        <ProjectList projects={PROJECTS} />
       </div>
-    </div>
+    </>
   );
 }
 
