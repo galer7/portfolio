@@ -15,7 +15,7 @@ export default function Project({
   name,
   description,
   link,
-  image,
+  // image,
   status,
   type,
   tags,
