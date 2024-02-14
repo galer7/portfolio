@@ -4,12 +4,12 @@ import TopBar from "./components/TopBar";
 
 function App() {
   return (
-    <>
+    <main>
       <TopBar />
-      <div className="flex flex-col h-screen ml-20">
+      <div className="flex justify-center">
         <ProjectList projects={PROJECTS} />
       </div>
-    </>
+    </main>
   );
 }
 

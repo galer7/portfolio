@@ -7,12 +7,16 @@ interface ProjectListProps {
 
 export default function ProjectList({ projects }: ProjectListProps) {
   return (
-    <div className="flex justify-center flex-col border-slate-300 rounded-lg w-full text">
-      <div>All projects</div>
-      <div>Showing runs from all projects</div>
-      <div>{projects.length} project runs</div>
-      {projects.map((project) => (
-        <Project key={project.name} {...project} />
+    <div className="flex justify-center flex-col rounded-lg w-4/5 text">
+      <div className="my-6">
+        <h2>All projects</h2>
+        <div className="text-[#868D96]">Showing runs from all projects</div>
+      </div>
+      <div className="p-4 border border-[#31363C] rounded-t-md font-bold bg-[#171B21]">
+        {projects.length} project runs
+      </div>
+      {projects.map((project, projectIndex) => (
+        <Project key={project.name} {...project} index={projectIndex} />
       ))}
     </div>
   );

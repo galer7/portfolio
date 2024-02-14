@@ -2,7 +2,9 @@ import clsx from "clsx";
 
 import { type ProjectType as ProjectType } from "../projects";
 
-interface ProjectProps extends ProjectType {}
+interface ProjectProps extends ProjectType {
+  index: number;
+}
 
 export default function Project({
   name,
@@ -14,35 +16,31 @@ export default function Project({
   tags,
 }: ProjectProps) {
   return (
-    <div className="flex flex-row items-center justify-start space-x-4 gap-20 p-4 border-b border-gray-200">
-      <div className="flex">
+    <div className="flex gap-20 p-4 border border-[#31363C] border-t-0 first:border-t last:rounded-b-md w-full">
+      <div className="flex gap-2 flex-1">
         <div>{getIcon(status)}</div>
 
         <div className="flex flex-col">
           <div>{name}</div>
-          <p
-            className="text-xs text-gray-500 min-w-0 w-64 truncate
-          "
-          >
-            {description}
-          </p>
+          <p className="text-xs text-gray-500 w-32 font-bold">{description}</p>
         </div>
       </div>
-      <a
-        href={link}
-        className={clsx(
-          "font-mono text-xs bg-blue-900 px-2 py-1 rounded-md",
-          link ? "text-blue-500" : "text-gray-300"
-        )}
-        target="_blank"
-        rel="noreferrer"
-      >
-        {link ? link : "No link"}
-      </a>
+      <div className="flex-1">
+        <a
+          href={link}
+          className={clsx(
+            "font-mono text-xs bg-blue-900 px-2 py-1 rounded-md",
+            link ? "text-blue-500" : "text-gray-300"
+          )}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {link ? link : "No link"}
+        </a>
+      </div>
 
-      {/* <img className="h-20 w-20 rounded-md" src={image} alt={name} /> */}
-      <div className="flex flex-col">
-        <div className="flex space-x-2">
+      <div className="flex flex-col gap-2 flex-1">
+        <div className="flex gap-2">
           <TagIcon />
           {tags.map((tag) => (
             <span
@@ -53,7 +51,7 @@ export default function Project({
             </span>
           ))}
         </div>
-        <div className="flex space-x-2">
+        <div className="flex gap-2">
           <TypeIcon />
           <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-md">
             {type}
