@@ -7,7 +7,7 @@ interface ProjectListProps {
 
 export default function ProjectList({ projects }: ProjectListProps) {
   return (
-    <div className="flex justify-center flex-col rounded-lg w-4/5 text">
+    <div className="flex flex-col justify-center rounded-lg w-4/5 text-white max-w-6xl">
       <div className="my-6">
         <h2>All projects</h2>
         <div className="text-[#868D96]">Showing runs from all projects</div>

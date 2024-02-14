@@ -1,6 +1,11 @@
 import clsx from "clsx";
 
 import { type ProjectType as ProjectType } from "../projects";
+import SuccessIcon from "./icons/SuccessIcon";
+import RunningIcon from "./icons/RunningIcon";
+import FailedIcon from "./icons/FailedIcon";
+import SkippedIcon from "./icons/SkippedIcon";
+import CancelledIcon from "./icons/CancelledIcon";
 
 interface ProjectProps extends ProjectType {
   index: number;
@@ -18,11 +23,11 @@ export default function Project({
   return (
     <div className="flex gap-20 p-4 border border-[#31363C] border-t-0 first:border-t last:rounded-b-md w-full">
       <div className="flex gap-2 flex-1">
-        <div>{getIcon(status)}</div>
+        <div className="mt-1">{getIcon(status)}</div>
 
         <div className="flex flex-col">
           <div>{name}</div>
-          <p className="text-xs text-gray-500 w-32 font-bold">{description}</p>
+          <p className="text-xs text-gray-500 font-bold">{description}</p>
         </div>
       </div>
       <div className="flex-1">
@@ -41,19 +46,22 @@ export default function Project({
 
       <div className="flex flex-col gap-2 flex-1">
         <div className="flex gap-2">
-          <TagIcon />
           {tags.map((tag) => (
             <span
               key={tag}
-              className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-md"
+              className="text-xs text-gray-600 bg-gray-100 px-2 rounded-md"
             >
               {tag}
             </span>
           ))}
         </div>
         <div className="flex gap-2">
-          <TypeIcon />
-          <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-md">
+          <span
+            className={clsx(
+              "text-xs text-gray-600 px-2  rounded-md",
+              getLabelColor(type)
+            )}
+          >
             {type}
           </span>
         </div>
@@ -64,15 +72,16 @@ export default function Project({
 
 function getIcon(status: ProjectType["status"]) {
   switch (status) {
-    case "complete":
+    case "success":
       return <SuccessIcon />;
-    case "in-progress":
-      return <InProgressIcon />;
-    case "abandoned":
-      return <FailureIcon />;
-    case "on-hold":
-    case "pending":
-      return <PlannedIcon />;
+    case "running":
+      return <RunningIcon />;
+    case "failed":
+      return <FailedIcon />;
+    case "cancelled":
+      return <CancelledIcon />;
+    case "skipped":
+      return <SkippedIcon />;
     default: {
       const exhaustiveCheck: never = status;
       return exhaustiveCheck;
@@ -80,116 +89,19 @@ function getIcon(status: ProjectType["status"]) {
   }
 }
 
-function PlannedIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-6 w-6 text-gray-500"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-      />
-    </svg>
-  );
-}
-
-function SuccessIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-6 w-6 text-green-500"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M5 13l4 4L19 7"
-      />
-    </svg>
-  );
-}
-
-function FailureIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-6 w-6 text-red-500"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M6 18L18 6M6 6l12 12"
-      />
-    </svg>
-  );
-}
-
-function InProgressIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-6 w-6 text-yellow-500"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M13 10V3L4 14h7v7l9-11h-7z"
-      />
-    </svg>
-  );
-}
-
-function TagIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-6 w-6 text-gray-500"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"
-      />
-    </svg>
-  );
-}
-
-function TypeIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-6 w-6 text-gray-500"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M13 10V3L4 14h7v7l9-11h-7z"
-      />
-    </svg>
-  );
+function getLabelColor(type: ProjectType["type"]) {
+  switch (type) {
+    case "personal":
+      return "bg-blue-100 border-2 border-blue-500";
+    case "work":
+      return "bg-red-100 border-2 border-red-500";
+    case "school":
+      return "bg-yellow-100 border-2 border-yellow-500";
+    case "other":
+      return "bg-gray-100 border-2 border-gray-500";
+    default: {
+      const exhaustiveCheck: never = type;
+      return exhaustiveCheck;
+    }
+  }
 }
