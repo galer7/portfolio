@@ -21,11 +21,11 @@ export const PROJECTS: ProjectType[] = [
   {
     name: "History GPT",
     description: "AI-generated visual history",
-    // link: "https://history.galer7.com",
+    link: "https://history-gpt.galer7.com",
     image: "https://via.placeholder.com/150",
-    status: "running",
+    status: "success",
     type: "personal",
-    tags: ["ai", "react"],
+    tags: ["ai", "sst"],
   },
   {
     name: "Flagship Founders GenAI",
